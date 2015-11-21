@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hackgirlszju.dao.TaskMapper" >
+  <resultMap id="BaseResultMap" type="com.hackgirlszju.model.Task" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="seeker_id" property="seekerId" jdbcType="INTEGER" />
+    <result column="seeker_name" property="seekerName" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="requirement" property="requirement" jdbcType="VARCHAR" />
+    <result column="reward" property="reward" jdbcType="VARCHAR" />
+    <result column="receiver_id" property="receiverId" jdbcType="INTEGER" />
+    <result column="receiver_name" property="receiverName" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="duration" property="duration" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, seeker_id, seeker_name, title, requirement, reward, receiver_id, receiver_name, 
+    status, duration
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hackgirlszju.model.TaskExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from task
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from task
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from task
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hackgirlszju.model.TaskExample" >
+    delete from task
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hackgirlszju.model.Task" >
+    insert into task (id, seeker_id, seeker_name, 
+      title, requirement, reward, 
+      receiver_id, receiver_name, status, 
+      duration)
+    values (#{id,jdbcType=INTEGER}, #{seekerId,jdbcType=INTEGER}, #{seekerName,jdbcType=VARCHAR}, 
+      #{title,jdbcType=VARCHAR}, #{requirement,jdbcType=VARCHAR}, #{reward,jdbcType=VARCHAR}, 
+      #{receiverId,jdbcType=INTEGER}, #{receiverName,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{duration,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hackgirlszju.model.Task" >
+    insert into task
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="seekerId != null" >
+        seeker_id,
+      </if>
+      <if test="seekerName != null" >
+        seeker_name,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="requirement != null" >
+        requirement,
+      </if>
+      <if test="reward != null" >
+        reward,
+      </if>
+      <if test="receiverId != null" >
+        receiver_id,
+      </if>
+      <if test="receiverName != null" >
+        receiver_name,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="duration != null" >
+        duration,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="seekerId != null" >
+        #{seekerId,jdbcType=INTEGER},
+      </if>
+      <if test="seekerName != null" >
+        #{seekerName,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="requirement != null" >
+        #{requirement,jdbcType=VARCHAR},
+      </if>
+      <if test="reward != null" >
+        #{reward,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverId != null" >
+        #{receiverId,jdbcType=INTEGER},
+      </if>
+      <if test="receiverName != null" >
+        #{receiverName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="duration != null" >
+        #{duration,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hackgirlszju.model.TaskExample" resultType="java.lang.Integer" >
+    select count(*) from task
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update task
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.seekerId != null" >
+        seeker_id = #{record.seekerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.seekerName != null" >
+        seeker_name = #{record.seekerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.requirement != null" >
+        requirement = #{record.requirement,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reward != null" >
+        reward = #{record.reward,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiverId != null" >
+        receiver_id = #{record.receiverId,jdbcType=INTEGER},
+      </if>
+      <if test="record.receiverName != null" >
+        receiver_name = #{record.receiverName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.duration != null" >
+        duration = #{record.duration,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update task
+    set id = #{record.id,jdbcType=INTEGER},
+      seeker_id = #{record.seekerId,jdbcType=INTEGER},
+      seeker_name = #{record.seekerName,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      requirement = #{record.requirement,jdbcType=VARCHAR},
+      reward = #{record.reward,jdbcType=VARCHAR},
+      receiver_id = #{record.receiverId,jdbcType=INTEGER},
+      receiver_name = #{record.receiverName,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      duration = #{record.duration,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hackgirlszju.model.Task" >
+    update task
+    <set >
+      <if test="seekerId != null" >
+        seeker_id = #{seekerId,jdbcType=INTEGER},
+      </if>
+      <if test="seekerName != null" >
+        seeker_name = #{seekerName,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="requirement != null" >
+        requirement = #{requirement,jdbcType=VARCHAR},
+      </if>
+      <if test="reward != null" >
+        reward = #{reward,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverId != null" >
+        receiver_id = #{receiverId,jdbcType=INTEGER},
+      </if>
+      <if test="receiverName != null" >
+        receiver_name = #{receiverName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="duration != null" >
+        duration = #{duration,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hackgirlszju.model.Task" >
+    update task
+    set seeker_id = #{seekerId,jdbcType=INTEGER},
+      seeker_name = #{seekerName,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      requirement = #{requirement,jdbcType=VARCHAR},
+      reward = #{reward,jdbcType=VARCHAR},
+      receiver_id = #{receiverId,jdbcType=INTEGER},
+      receiver_name = #{receiverName,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      duration = #{duration,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
