@@ -1,5 +1,7 @@
 package com.hackgirlszju.model;
 
+import java.util.Date;
+
 public class Task {
     private Integer id;
 
@@ -8,6 +10,8 @@ public class Task {
     private String seekerName;
 
     private String title;
+
+    private String location;
 
     private String requirement;
 
@@ -19,7 +23,11 @@ public class Task {
 
     private Integer status;
 
-    private String duration;
+    private Date validtime;
+
+    private Date createtime;
+
+    private Date updatetime;
 
     public Integer getId() {
         return id;
@@ -51,6 +59,14 @@ public class Task {
 
     public void setTitle(String title) {
         this.title = title == null ? null : title.trim();
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location == null ? null : location.trim();
     }
 
     public String getRequirement() {
@@ -93,11 +109,27 @@ public class Task {
         this.status = status;
     }
 
-    public String getDuration() {
-        return duration;
+    public Date getValidtime() {
+        return validtime;
     }
 
-    public void setDuration(String duration) {
-        this.duration = duration == null ? null : duration.trim();
+    public void setValidtime(Date validtime) {
+        this.validtime = validtime;
+    }
+
+    public Date getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(Date createtime) {
+        this.createtime = createtime;
+    }
+
+    public Date getUpdatetime() {
+        return updatetime;
+    }
+
+    public void setUpdatetime(Date updatetime) {
+        this.updatetime = updatetime;
     }
 }

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hackgirlszju.dao.TaskMapper" >
+  <resultMap id="BaseResultMap" type="com.hackgirlszju.model.Task" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="seeker_id" property="seekerId" jdbcType="INTEGER" />
+    <result column="seeker_name" property="seekerName" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="location" property="location" jdbcType="VARCHAR" />
+    <result column="requirement" property="requirement" jdbcType="VARCHAR" />
+    <result column="reward" property="reward" jdbcType="VARCHAR" />
+    <result column="receiver_id" property="receiverId" jdbcType="INTEGER" />
+    <result column="receiver_name" property="receiverName" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="validTime" property="validtime" jdbcType="TIMESTAMP" />
+    <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="updateTime" property="updatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, seeker_id, seeker_name, title, location, requirement, reward, receiver_id, receiver_name, 
+    status, validTime, createTime, updateTime
+  </sql>
+
+
+  <select id="list" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from task
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from task
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <insert id="insert" parameterType="com.hackgirlszju.model.Task" >
+    insert into task (id, seeker_id, seeker_name, 
+      title, location, requirement, 
+      reward, receiver_id, receiver_name, 
+      status, validTime, createTime, 
+      updateTime)
+    values (#{id,jdbcType=INTEGER}, #{seekerId,jdbcType=INTEGER}, #{seekerName,jdbcType=VARCHAR}, 
+      #{title,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, #{requirement,jdbcType=VARCHAR}, 
+      #{reward,jdbcType=VARCHAR}, #{receiverId,jdbcType=INTEGER}, #{receiverName,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{validtime,jdbcType=TIMESTAMP}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+
+  <update id="updateByPrimaryKey" parameterType="com.hackgirlszju.model.Task" >
+    update task
+    set
+      seeker_name = #{seekerName,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      location = #{location,jdbcType=VARCHAR},
+      requirement = #{requirement,jdbcType=VARCHAR},
+      reward = #{reward,jdbcType=VARCHAR},
+      receiver_id = #{receiverId,jdbcType=INTEGER},
+      receiver_name = #{receiverName,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      validTime = #{validtime,jdbcType=TIMESTAMP},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+</mapper>

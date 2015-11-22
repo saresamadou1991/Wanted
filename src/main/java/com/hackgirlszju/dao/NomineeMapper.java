@@ -6,25 +6,12 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface NomineeMapper {
-    int countByExample(NomineeExample example);
 
-    int deleteByExample(NomineeExample example);
+    List<Nominee> listByTaskId(@Param("taskId")Integer taskId);
 
-    int deleteByPrimaryKey(Integer id);
+    int deleteByTaskId(@Param("taskId")Integer taskId);
 
     int insert(Nominee record);
 
-    int insertSelective(Nominee record);
 
-    List<Nominee> selectByExample(NomineeExample example);
-
-    Nominee selectByPrimaryKey(Integer id);
-
-    int updateByExampleSelective(@Param("record") Nominee record, @Param("example") NomineeExample example);
-
-    int updateByExample(@Param("record") Nominee record, @Param("example") NomineeExample example);
-
-    int updateByPrimaryKeySelective(Nominee record);
-
-    int updateByPrimaryKey(Nominee record);
 }

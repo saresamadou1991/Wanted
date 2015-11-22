@@ -3,28 +3,19 @@ package com.hackgirlszju.dao;
 import com.hackgirlszju.model.Task;
 import com.hackgirlszju.model.TaskExample;
 import java.util.List;
+
+import com.hackgirlszju.model.UserKey;
 import org.apache.ibatis.annotations.Param;
 
 public interface TaskMapper {
-    int countByExample(TaskExample example);
 
-    int deleteByExample(TaskExample example);
-
-    int deleteByPrimaryKey(Integer id);
+    List<Task> list();
 
     int insert(Task record);
 
-    int insertSelective(Task record);
 
-    List<Task> selectByExample(TaskExample example);
+    Task selectByPrimaryKey(@Param("id") Integer id);
 
-    Task selectByPrimaryKey(Integer id);
+    int updateByPrimaryKey(Task task);
 
-    int updateByExampleSelective(@Param("record") Task record, @Param("example") TaskExample example);
-
-    int updateByExample(@Param("record") Task record, @Param("example") TaskExample example);
-
-    int updateByPrimaryKeySelective(Task record);
-
-    int updateByPrimaryKey(Task record);
 }

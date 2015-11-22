@@ -5,10 +5,15 @@
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-       <!--自动扫描控制器-->
-       <context:component-scan base-package="com.hackgirlszju.controller"/>
+       <mvc:default-servlet-handler/>
 
+       <!--自动扫描控制器-->
+       <!--<context:component-scan base-package="com.hackgirlszju"/>-->
+
+       <context:component-scan base-package="com.hackgirlszju.controller"/>
        <context:component-scan base-package="com.hackgirlszju.service"/>
+       <context:component-scan base-package="com.hackgirlszju.dao"/>
+
 
        <!--视图渲染-->
        <bean id="internalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -18,26 +23,37 @@
        <!--控制器映射器和控制器适配器-->
        <mvc:annotation-driven>
 
-              <!--<mvc:message-converters register-defaults="true">-->
-                     <!--&lt;!&ndash; 配置Fastjson支持 &ndash;&gt;-->
-                     <!--<bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">-->
-                            <!--<property name="supportedMediaTypes">-->
-                                   <!--<list>-->
-                                          <!--<value>text/html;charset=UTF-8</value>-->
-                                          <!--<value>application/json</value>-->
-                                   <!--</list>-->
-                            <!--</property>-->
-                            <!--<property name="features">-->
-                                   <!--<array>-->
-                                          <!--<value>WriteMapNullValue</value>-->
-                                          <!--<value>WriteNullBooleanAsFalse</value>-->
-                                          <!--<value>WriteNullStringAsEmpty</value>-->
-                                          <!--<value>QuoteFieldNames</value>-->
-                                          <!--<value>WriteDateUseDateFormat</value>-->
-                                   <!--</array>-->
-                            <!--</property>-->
-                     <!--</bean>-->
-              <!--</mvc:message-converters>-->
+              <mvc:message-converters register-defaults="true">
+                     <!-- 配置Fastjson支持 -->
+                     <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+                            <property name="supportedMediaTypes">
+                                   <list>
+                                          <value>text/html;charset=UTF-8</value>
+                                          <value>application/json</value>
+                                   </list>
+                            </property>
+                            <property name="features">
+                                   <array>
+                                          <value>WriteMapNullValue</value>
+                                          <value>WriteNullBooleanAsFalse</value>
+                                          <value>WriteNullStringAsEmpty</value>
+                                          <value>QuoteFieldNames</value>
+                                          <value>WriteDateUseDateFormat</value>
+                                   </array>
+                            </property>
+                     </bean>
+              </mvc:message-converters>
 
        </mvc:annotation-driven>
+
+       <!-- 解析器注册 -->
+       <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+              <property name="messageConverters">
+                     <list>
+                            <ref bean="stringHttpMessageConverter"/>
+                     </list>
+              </property>
+       </bean>
+       <!-- String类型解析器，允许直接返回String类型的消息 -->
+       <bean id="stringHttpMessageConverter" class="org.springframework.http.converter.StringHttpMessageConverter"/>
 </beans>

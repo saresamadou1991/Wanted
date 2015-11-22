@@ -152,21 +152,22 @@
     </dependency>
 
 
-    <dependency>
-      <groupId>com.alibaba</groupId>
-      <artifactId>druid</artifactId>
-      <version>1.0.9</version>
-      <exclusions>
-        <exclusion>
-          <artifactId>jconsole</artifactId>
-          <groupId>com.alibaba</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>tools</artifactId>
-          <groupId>com.alibaba</groupId>
-        </exclusion>
-      </exclusions>
-    </dependency>
+    <!--<dependency>-->
+      <!--<groupId>com.alibaba</groupId>-->
+      <!--<artifactId>druid</artifactId>-->
+      <!--<version>1.0.9</version>-->
+      <!--<exclusions>-->
+        <!--<exclusion>-->
+          <!--<artifactId>jconsole</artifactId>-->
+          <!--<groupId>com.alibaba</groupId>-->
+        <!--</exclusion>-->
+        <!--<exclusion>-->
+          <!--<artifactId>tools</artifactId>-->
+          <!--<groupId>com.alibaba</groupId>-->
+        <!--</exclusion>-->
+      <!--</exclusions>-->
+    <!--</dependency>-->
+    <!-- -->
 
   </dependencies>
 </project>
